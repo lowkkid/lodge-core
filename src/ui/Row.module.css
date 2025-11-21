@@ -1,0 +1,13 @@
+.row {
+  display: flex;
+}
+
+.row--horizontal {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.row--vertical {
+  flex-direction: column;
+  gap: 1.6rem;
+}

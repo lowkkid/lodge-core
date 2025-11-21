@@ -1,0 +1,18 @@
+.heading {
+  line-height: 1.4;
+}
+
+.heading--lg {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.heading--md {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.heading--sm {
+  font-size: 2rem;
+  font-weight: 500;
+}
