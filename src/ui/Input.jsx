@@ -1,13 +1,8 @@
-import styles from "./Input.module.scss";
+import { forwardRef } from "react";
+import styles from "./Input.module.css";
 
-function Input({ type, placeholder }) {
-  return (
-    <input
-      className={styles["input"]}
-      type={type}
-      placeholder={placeholder}
-    ></input>
-  );
-}
+const Input = forwardRef(function ({ ...props }, ref) {
+  return <input className={styles["input"]} {...props} ref={ref}></input>;
+});
 
 export default Input;
