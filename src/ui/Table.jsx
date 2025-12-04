@@ -1,36 +1,45 @@
 import styles from "./Table.module.css";
+import { createContext, useContext } from "react";
 
+const TableContext = createContext({});
 function Table({ columns, children }) {
   return (
-    <div className={styles.table} style={{ "--columns": columns }}>
-      {children}
-    </div>
+    <TableContext.Provider value={{ columns }}>
+      <div className={styles["table"]} role="table">
+        {children}
+      </div>
+    </TableContext.Provider>
   );
 }
 
-function Header({ children, columns }) {
+function Header({ children }) {
+  const context = useContext(TableContext);
   return (
-    <div
+    <header
+      role="row"
       className={`${styles.commonRow} ${styles.header}`}
-      style={{ gridTemplateColumns: columns }}
+      style={{ gridTemplateColumns: context.columns }}
     >
       {children}
-    </div>
+    </header>
   );
 }
 
-function Row({ children, columns }) {
+function Row({ children }) {
+  const context = useContext(TableContext);
+
   return (
     <div
-      className={`${styles.commonRow} ${styles.row}`}
-      style={{ gridTemplateColumns: columns }}
+      className={`${styles["commonRow"]} ${styles["row"]}`}
+      style={{ gridTemplateColumns: context.columns }}
+      role="row"
     >
       {children}
     </div>
   );
 }
 
-function Body({ data, render, columns }) {
+function Body({ data, render }) {
   if (!data || data.length === 0) {
     return (
       <section className={styles.body}>

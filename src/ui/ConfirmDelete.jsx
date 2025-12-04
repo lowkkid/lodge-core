@@ -2,7 +2,7 @@ import styles from "./ConfirmDelete.module.css";
 import Button from "./Button";
 import Heading from "./Heading";
 
-function ConfirmDelete({ resourceName, onConfirm, disabled }) {
+function ConfirmDelete({ resourceName, onConfirm, onClose, disabled }) {
   return (
     <div className={styles.confirmDelete}>
       <Heading size="sm">Delete {resourceName}</Heading>
@@ -12,10 +12,10 @@ function ConfirmDelete({ resourceName, onConfirm, disabled }) {
       </p>
 
       <div>
-        <Button variation="secondary" disabled={disabled}>
+        <Button variation="secondary" onClick={onClose} disabled={disabled}>
           Cancel
         </Button>
-        <Button variation="danger" disabled={disabled}>
+        <Button variation="danger" onClick={onConfirm} disabled={disabled}>
           Delete
         </Button>
       </div>

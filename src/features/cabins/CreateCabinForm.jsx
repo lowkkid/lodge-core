@@ -9,7 +9,7 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, onClose }) {
   const { id: editId, image: _, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -28,16 +28,29 @@ function CreateCabinForm({ cabinToEdit = {} }) {
             id: editId,
             cabinFormData: { ...data, image: data.image?.[0] },
           },
-          { onSuccess: () => reset() }
+          {
+            onSuccess: () => {
+              reset();
+              onClose?.();
+            },
+          },
         )
       : createCabin(
           { ...data, image: data.image[0] },
-          { onSuccess: () => reset() }
+          {
+            onSuccess: () => {
+              reset();
+              onClose?.();
+            },
+          },
         );
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      type={onClose ? "modal" : "regular"}
+    >
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -118,7 +131,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" onClick={() => onClose?.()}>
           Cancel
         </Button>
         <Button disabled={isWorking}>

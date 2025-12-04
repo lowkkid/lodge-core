@@ -35,7 +35,7 @@ export async function createCabin(cabinFormData) {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }
+      },
     );
     return res.data;
   } catch (err) {
@@ -58,7 +58,7 @@ export async function editCabin(id, cabinFormData) {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }
+      },
     );
     return res.data;
   } catch (err) {

@@ -42,6 +42,7 @@
   padding: 1.2rem;
 }
 
+/* this will hide the footer when it contains no child elements */
 .footer:not(:has(*)) {
   display: none;
 }

@@ -1,46 +1,89 @@
 import styles from "./Menus.module.css";
+import { createContext, useContext, useRef, useState } from "react";
+import { HiEllipsisVertical } from "react-icons/hi2";
+import { createPortal } from "react-dom";
+import useOutsideClick from "../hooks/useOutsideClick.js";
 
-function Menus({ children, ...props }) {
+const MenusContext = createContext({});
+
+function Menus({ children }) {
+  const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState(null);
+
+  const close = () => setOpenId("");
+  const open = (id) => setOpenId(id);
+
   return (
-    <div className={styles["menu"]} {...props}>
+    <MenusContext.Provider
+      value={{ openId, close, open, position, setPosition }}
+    >
       {children}
-    </div>
+    </MenusContext.Provider>
   );
 }
 
-function Toggle({ children, className, ...props }) {
+function Menu({ children }) {
+  return <div className={styles["menu"]}>{children}</div>;
+}
+
+function Toggle({ opens }) {
+  const { openId, close, open, setPosition } = useContext(MenusContext);
+
+  const handleClick = (e) => {
+    const rect = e.target.closest("button").getBoundingClientRect();
+    setPosition({
+      x: window.innerWidth - rect.width - rect.x,
+      y: rect.y + rect.height + 8,
+    });
+    openId === opens ? close() : open(opens);
+  };
+
   return (
-    <button className={`${styles["toggle"]} ${className || ""}`} {...props}>
-      {children}
+    <button onClick={handleClick} className={styles["toggle"]}>
+      <HiEllipsisVertical />
     </button>
   );
 }
 
-function List({ position, children, className, ...props }) {
-  return (
+function List({ id, children }) {
+  const { openId, position, close } = useContext(MenusContext);
+  const ref = useRef(null);
+  useOutsideClick(ref, close);
+  if (openId !== id) return null;
+
+  return createPortal(
     <ul
-      className={`${styles["list"]} ${className || ""}`}
+      ref={ref}
+      className={styles["list"]}
       style={{
         right: position?.x ? `${position.x}px` : undefined,
         top: position?.y ? `${position.y}px` : undefined,
       }}
-      {...props}
     >
       {children}
-    </ul>
+    </ul>,
+    document.body,
   );
 }
 
-function Button({ children, className, ...props }) {
+function MenuButton({ icon, children, onClick, ...props }) {
+  const { close } = useContext(MenusContext);
+
+  function handleClick() {
+    onClick?.();
+    close();
+  }
   return (
-    <button className={`${styles["button"]} ${className || ""}`} {...props}>
-      {children}
-    </button>
+    <li className={styles["button"]} onClick={handleClick} {...props}>
+      {icon}
+      <span>{children}</span>
+    </li>
   );
 }
 
+Menus.Menu = Menu;
 Menus.Toggle = Toggle;
 Menus.List = List;
-Menus.Button = Button;
+Menus.MenuButton = MenuButton;
 
 export default Menus;
