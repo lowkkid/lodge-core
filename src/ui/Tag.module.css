@@ -7,17 +7,17 @@
   border-radius: 100px;
 }
 
-.tagBlue {
+.tag--blue {
   color: var(--color-blue-700);
   background-color: var(--color-blue-100);
 }
 
-.tagGreen {
+.tag--green {
   color: var(--color-green-700);
   background-color: var(--color-green-100);
 }
 
-.tagSilver {
+.tag--silver {
   color: var(--color-grey-600);
   background-color: var(--color-grey-100);
 }

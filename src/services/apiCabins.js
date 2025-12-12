@@ -48,8 +48,6 @@ export async function createCabin(cabinFormData) {
 }
 
 export async function editCabin(id, cabinFormData) {
-  console.log(id);
-  console.log(cabinFormData);
   try {
     const res = await api.put(
       `/cabins/${id}`,

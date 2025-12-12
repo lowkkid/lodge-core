@@ -52,7 +52,7 @@ function Body({ data, render }) {
 }
 
 function Footer({ children }) {
-  return <footer className={styles.footer}>{children}</footer>;
+  return <footer className={styles["footer"]}>{children}</footer>;
 }
 
 Table.Header = Header;

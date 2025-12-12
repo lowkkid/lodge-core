@@ -1,42 +1,28 @@
-import styled from "styled-components";
+import styles from "./BookingRow.module.css";
+
 import { format, isToday } from "date-fns";
 
+import Menus from "../../ui/Menus.jsx";
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-
-const Cabin = styled.div`
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--color-grey-600);
-  font-family: "Sono";
-`;
-
-const Stacked = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-
-  & span:first-child {
-    font-weight: 500;
-  }
-
-  & span:last-child {
-    color: var(--color-grey-500);
-    font-size: 1.2rem;
-  }
-`;
-
-const Amount = styled.div`
-  font-family: "Sono";
-  font-weight: 500;
-`;
+import {
+  HiArrowDownOnSquare,
+  HiArrowUpOnSquare,
+  HiEye,
+  HiTrash,
+} from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout.js";
+import Modal from "../../ui/Modal.jsx";
+import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
+import useDeleteBooking from "./useDeleteBooking.js";
 
 function BookingRow({
   booking: {
-    id: bookingId,
+    id,
     created_at,
     startDate,
     endDate,
@@ -44,10 +30,15 @@ function BookingRow({
     numGuests,
     totalPrice,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    cabinName,
+    guestFullName,
+    guestEmail,
   },
 }) {
+  const navigate = useNavigate();
+  const { checkout, isCheckingOut } = useCheckout();
+  const { deleteBooking, isDeleting } = useDeleteBooking();
+
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
@@ -56,14 +47,14 @@ function BookingRow({
 
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+      <div className={styles["cabin"]}>{cabinName}</div>
 
-      <Stacked>
-        <span>{guestName}</span>
-        <span>{email}</span>
-      </Stacked>
+      <div className={styles["stacked"]}>
+        <span>{guestFullName}</span>
+        <span>{guestEmail}</span>
+      </div>
 
-      <Stacked>
+      <div className={styles["stacked"]}>
         <span>
           {isToday(new Date(startDate))
             ? "Today"
@@ -74,11 +65,53 @@ function BookingRow({
           {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
           {format(new Date(endDate), "MMM dd yyyy")}
         </span>
-      </Stacked>
+      </div>
 
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
-      <Amount>{formatCurrency(totalPrice)}</Amount>
+      <div className={styles["amount"]}>{formatCurrency(totalPrice)}</div>
+
+      <Modal>
+        <Menus.Menu>
+          <Menus.Toggle opens={id} />
+          <Menus.List id={id}>
+            <Menus.MenuButton
+              icon={<HiEye />}
+              onClick={() => navigate(`/bookings/${id}`)}
+            >
+              See Details
+            </Menus.MenuButton>
+            {status === "unconfirmed" && (
+              <Menus.MenuButton
+                icon={<HiArrowDownOnSquare />}
+                onClick={() => navigate(`/checkin/${id}`)}
+              >
+                Check In
+              </Menus.MenuButton>
+            )}
+            {status === "checked-in" && (
+              <Menus.MenuButton
+                icon={<HiArrowUpOnSquare />}
+                onClick={() => checkout(id)}
+                disabled={isCheckingOut}
+              >
+                Check Out
+              </Menus.MenuButton>
+            )}
+            <Modal.Open opens="delete">
+              <Menus.MenuButton icon={<HiTrash />}>Delete</Menus.MenuButton>
+            </Modal.Open>
+          </Menus.List>
+
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              disabled={isDeleting}
+              resourceName="booking"
+              onConfirm={() => deleteBooking(id)}
+            ></ConfirmDelete>
+          </Modal.Window>
+        </Menus.Menu>
+      </Modal>
     </Table.Row>
   );
 }

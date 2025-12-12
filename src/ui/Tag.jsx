@@ -3,12 +3,12 @@ import styles from "./Tag.module.css";
 function Tag({ type, children }) {
   const typeClass =
     type === "blue"
-      ? styles.tagBlue
+      ? styles["tag--blue"]
       : type === "green"
-      ? styles.tagGreen
-      : type === "silver"
-      ? styles.tagSilver
-      : "";
+        ? styles["tag--green"]
+        : type === "silver"
+          ? styles["tag--silver"]
+          : "";
 
   return <span className={`${styles.tag} ${typeClass}`}>{children}</span>;
 }

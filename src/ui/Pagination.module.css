@@ -5,12 +5,12 @@
   justify-content: space-between;
 }
 
-.p {
+.paragraph {
   font-size: 1.4rem;
   margin-left: 0.8rem;
 }
 
-.p span {
+.paragraph span {
   font-weight: 600;
 }
 
