@@ -1,13 +1,7 @@
 import styles from "./Sidebar.module.css";
-import Logo from "./Logo";
-import MainNav from "./MainNav";
-function Sidebar() {
-  return (
-    <aside className={styles["sidebar"]}>
-      <Logo />
-      <MainNav />
-    </aside>
-  );
+
+function Sidebar({ children }) {
+  return <aside className={styles["sidebar"]}>{children}</aside>;
 }
 
 export default Sidebar;

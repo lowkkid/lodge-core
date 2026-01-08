@@ -16,3 +16,9 @@
   font-size: 2rem;
   font-weight: 500;
 }
+
+.heading--xs {
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+}

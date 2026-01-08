@@ -25,13 +25,14 @@ function Header({ children }) {
   );
 }
 
-function Row({ children }) {
+function Row({ children, style }) {
   const context = useContext(TableContext);
+  console.log(style);
 
   return (
     <div
       className={`${styles["commonRow"]} ${styles["row"]}`}
-      style={{ gridTemplateColumns: context.columns }}
+      style={{ ...style, gridTemplateColumns: context.columns }}
       role="row"
     >
       {children}

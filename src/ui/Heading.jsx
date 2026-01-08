@@ -6,11 +6,15 @@ const tagMap = {
   sm: "h3",
 };
 
-function Heading({ size, children }) {
-  const className = `${styles["heading"]} ${styles[`heading-${size}`]}`;
+function Heading({ size, children, ...props }) {
+  const className = `${styles["heading"]} ${styles[`heading--${size}`]}`;
   const Tag = tagMap[size] || "h3";
 
-  return <Tag className={className}>{children}</Tag>;
+  return (
+    <Tag className={className} {...props}>
+      {children}
+    </Tag>
+  );
 }
 
 export default Heading;
