@@ -9,6 +9,7 @@ import Pagination from "../../ui/Pagination.jsx";
 function BookingTable() {
   const { isLoading, bookings, pageSize, count } = useBookings();
 
+  const x = bookings.ss.ss;
   if (isLoading) return <Spinner />;
   if (!bookings.length) return <Empty resource="bookings" />;
 

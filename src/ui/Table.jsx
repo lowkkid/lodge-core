@@ -27,7 +27,6 @@ function Header({ children }) {
 
 function Row({ children, style }) {
   const context = useContext(TableContext);
-  console.log(style);
 
   return (
     <div

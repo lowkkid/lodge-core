@@ -21,6 +21,7 @@ import ProtectedRoute from "./ui/ProtectedRoute.jsx";
 import AdminLayout from "./layout/AdminLayout.jsx";
 import { AuthProvider } from "./features/authentication/AuthContext.jsx";
 import { DarkModeProvider } from "./context/DarkModeContext.jsx";
+import ErrorFallback from "./ui/ErrorFallback.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
         <AppLayout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorFallback />,
     children: [
       {
         index: true,
@@ -85,6 +87,7 @@ const router = createBrowserRouter([
         <AdminLayout />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorFallback />,
     children: [
       {
         index: true,
@@ -123,6 +126,7 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+    errorElement: <ErrorFallback />,
   },
   {
     path: "*",

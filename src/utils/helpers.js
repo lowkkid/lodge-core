@@ -17,8 +17,6 @@ export const getToday = () => {
 };
 
 export const subtractDaysFrom = (dateStr, numDays) => {
-  console.log(dateStr);
-  console.log(new Date(dateStr));
   return subDays(new Date(dateStr), numDays).toISOString().slice(0, 10);
 };
 
