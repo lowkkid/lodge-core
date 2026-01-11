@@ -38,6 +38,58 @@ export async function getBookings({ filter, sortBy, pageNumber, pageSize }) {
   }
 }
 
+export async function getSalesBetweenDates(start, end) {
+  try {
+    const res = await api.get(`/bookings/sales?start=${start}&end=${end}`);
+    return res.data;
+  } catch (err) {
+    if (typeof err.response?.data === "string") {
+      throw new Error(err.response?.data);
+    } else {
+      throw new Error(err.message);
+    }
+  }
+}
+
+export async function getBookingsCountBetweenDates(start, end) {
+  try {
+    const res = await api.get(`/bookings/count?start=${start}&end=${end}`);
+    return res.data;
+  } catch (err) {
+    if (typeof err.response?.data === "string") {
+      throw new Error(err.response?.data);
+    } else {
+      throw new Error(err.message);
+    }
+  }
+}
+
+export async function getStaysBetweenDates(start, end) {
+  try {
+    const res = await api.get(`/bookings/stays?start=${start}&end=${end}`);
+    return res.data;
+  } catch (err) {
+    if (typeof err.response?.data === "string") {
+      throw new Error(err.response?.data);
+    } else {
+      throw new Error(err.message);
+    }
+  }
+}
+
+export async function getTodayActivity() {
+  try {
+    const res = await api.get(`/bookings/today`);
+    return res.data;
+  } catch (err) {
+    if (typeof err.response?.data === "string") {
+      throw new Error(err.response?.data);
+    } else {
+      throw new Error(err.message);
+    }
+  }
+}
+
 export async function getBooking(id) {
   try {
     const res = await api.get(`/bookings/${id}`);

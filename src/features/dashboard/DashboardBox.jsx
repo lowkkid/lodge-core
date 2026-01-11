@@ -1,16 +1,8 @@
-import styled from "styled-components";
+import styles from "./DashboardBox.module.css";
 
-const DashboardBox = styled.div`
-  /* Box */
-  background-color: var(--color-grey-0);
-  border: 1px solid var(--color-grey-100);
-  border-radius: var(--border-radius-md);
-
-  padding: 3.2rem;
-
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-`;
+function DashboardBox({ children, className }) {
+  const finalClassName = styles["dashboard-box"] + " " + className;
+  return <div className={finalClassName}>{children}</div>;
+}
 
 export default DashboardBox;
