@@ -13,14 +13,6 @@ import MainNav from "../ui/MainNav.jsx";
 import Link from "../ui/Link.jsx";
 import Logo from "../ui/Logo.jsx";
 
-const navItems = [
-  { to: "/admin/dashboard", icon: <HiOutlineHome />, label: "Home" },
-  { to: "/admin/bookings", icon: <HiOutlineCalendarDays />, label: "Bookings" },
-  { to: "/admin/cabins", icon: <HiOutlineHomeModern />, label: "Cabins" },
-  { to: "/admin/users", icon: <HiOutlineUsers />, label: "Users" },
-  { to: "/admin/settings", icon: <HiOutlineCog6Tooth />, label: "Settings" },
-];
-
 function AdminLayout() {
   return (
     <div className={styles["app"]}>

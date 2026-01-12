@@ -18,13 +18,14 @@ import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 import Modal from "../../ui/Modal.jsx";
 
 function BookingDetail() {
-  const { booking, isLoading } = useBooking();
+  const { booking, isLoading, error } = useBooking();
   const { checkout, isCheckingOut } = useCheckout();
   const { deleteBooking, isDeleting } = useDeleteBooking();
   const navigate = useNavigate();
   const moveBack = useMoveBack();
 
   if (isLoading) return <Spinner />;
+  if (!booking) return <p>{error.message}</p>;
   const { status, id } = booking;
   const statusToTagName = {
     unconfirmed: "blue",

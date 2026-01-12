@@ -1,10 +1,16 @@
 .logo {
   text-align: center;
+
+  &:hover .img {
+    transform: scale(1.05);
+  }
 }
 
 .img {
+  transition: transform 0.3s ease;
   height: 9.6rem;
   width: auto;
+  scale: 1.4;
 }
 
 

@@ -1,14 +1,15 @@
 import styles from "./Logo.module.css";
 import { useDarkMode } from "../context/DarkModeContext.jsx";
+import { Link } from "react-router-dom";
 
 function Logo() {
   const { darkMode } = useDarkMode();
 
-  const src = darkMode ? "/logo-dark.png" : "/logo-light.png";
+  const src = darkMode ? "/dark-mode-logo.png" : "/light-mode-logo.png";
   return (
-    <div className={styles["logo"]}>
+    <Link className={styles["logo"]} to="/">
       <img className={styles["img"]} src={src} alt="Logo" />
-    </div>
+    </Link>
   );
 }
 

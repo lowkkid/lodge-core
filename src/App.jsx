@@ -139,7 +139,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <DarkModeProvider>
         <AuthProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
           <Toaster
             position="top-center"
             gutter={12}
