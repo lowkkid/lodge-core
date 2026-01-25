@@ -7,6 +7,11 @@ import mkcert from "vite-plugin-mkcert";
 export default defineConfig({
   server: {
     https: true,
+    port: 5173,
+    strictPort: true,
+    host: true,
+    origin: "http://0.0.0.0:5173",
   },
+
   plugins: [react(), eslint(), mkcert()],
 });
