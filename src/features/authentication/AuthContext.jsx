@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
     return () => api.interceptors.request.eject(requestInterceptor);
   }, [token]);
 
-  //when in request there was no token (user reloaded page) or token is expired - try to get new one with refresh token
+  //when in request there was no jwt token (user reloaded page) or token is expired - try to get new one with refresh token
   useLayoutEffect(() => {
     const responseInterceptor = api.interceptors.response.use(
       (response) => response,
